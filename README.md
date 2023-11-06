@@ -14,6 +14,7 @@ The iris dataset is straightforward, but it provides a solid foundation for expl
 
 Question 1
 1. Provide a summary of the dataset, highlighting the mean, median, and range for each measurement (sepal length, sepal width, petal length, petal width) for each species.
+```
 iris_summary <- iris %>%
   group_by(Species) %>%
   summarize(
@@ -37,6 +38,8 @@ iris_summary <- iris %>%
     Min_Petal.Width = min(Petal.Width),
     Max_Petal.Width = max(Petal.Width)
   )
+
+```
 Question 2 & Question 3
 2. Plot the distribution of each measurement (sepal length, sepal width, petal length, petal width) using histograms. Color the histograms based on species.
 3. Determine which species has the highest average petal length.
@@ -77,10 +80,14 @@ Within the Iris data set there is 4 total outliers within sepal width. Two outli
 
 
 Question 6
+
 6. Calculate the correlation coefficient between sepal length and petal length for each species.
+
+```
 ## # A tibble: 3 × 2
 ##   Species    correlation
 ##   <fct>            <dbl>
 ## 1 setosa           0.267
 ## 2 versicolor       0.754
 ## 3 virginica        0.864
+```
