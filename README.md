@@ -14,7 +14,7 @@ Sepal.Length: Length of the sepal in cm. Sepal.Width: Width of the sepal in cm. 
 
 The iris dataset is straightforward, but it provides a solid foundation for exploring basic principles in machine learning and statistics. There’s a clear distinction between the setosa species and the other two species, but versicolor and virginica overlap in the feature space, making it a bit challenging but interesting.
 
-Question 1
+## Question 1
 1. Provide a summary of the dataset, highlighting the mean, median, and range for each measurement (sepal length, sepal width, petal length, petal width) for each species.
 ```
 iris_summary <- iris %>%
@@ -42,7 +42,7 @@ iris_summary <- iris %>%
   )
 
 ```
-Question 2 & Question 3
+## Question 2 & Question 3
 2. Plot the distribution of each measurement (sepal length, sepal width, petal length, petal width) using histograms. Color the histograms based on species.
 3. Determine which species has the highest average petal length.
 The Species with the highest average Petal length is Virginica. See Figure 3 for the details.
