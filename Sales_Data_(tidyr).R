@@ -26,7 +26,7 @@ long_sales_data <- sales_data %>%
   )
 
 # View the result
-print(long_sales_data)
+View(long_sales_data)
 
 
 wide_sales_data <- long_sales_data %>%
@@ -36,7 +36,7 @@ wide_sales_data <- long_sales_data %>%
   )
 
 # View the result
-print(wide_sales_data)
+View(wide_sales_data)
 
 #incorrect answer was the 'names = c()' which is the new vector being produced
 #from splitting a vector
@@ -49,14 +49,14 @@ long_sales_data <- long_sales_data %>%
 
 
 #the correct most up to date method is more intuitive
-long_sales_data <- long_sales_data %>%
+long_sales_data_separate <- long_sales_data %>%
   separate_wider_delim(
     cols = MonthYear,
     delim = "_",
     names = c("Month", "Year")
   )
 
-View(long_sales_data)
+View(long_sales_data_separate)
 
 long_sales_data <- long_sales_data %>% 
   unite(col = "YearMonth",
@@ -67,3 +67,9 @@ long_sales_data <- long_sales_data %>%
 
 View(long_sales_data)
 
+
+long_sales_data_separate %>% 
+  group_by(Month) %>% 
+  summarise(
+    Total.Monthly.Sales = mean(Sales)
+  )
