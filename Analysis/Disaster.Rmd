@@ -122,30 +122,28 @@ ggplot(disaster_df, aes(x = incident_type)) +
 
 ```
 
-# build a frequncy table to see the distrubtion.
-```{build a frequency table}
-hist(res$Number_of_Disasters_Declared)
-```
 
 
 ### build a standard GGPLOT since this graph is on a timelines no need to do anything to it
-```{r build out the dotplot, echo=FALSE, message=FALSE, warning=FALSE}
-res.graph <-ggplot(data = res,mapping = aes(x = Year_Declared,y=Number_of_Disasters_Declared))+
-  geom_point(aes())+
-  geom_smooth(method = "lm",col="black")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  labs(title = "Number of Natural Disasters Declared by year",subtitle ="By the federal government")
 
-print(res.graph)
-```
 ```{r Geographic Analysis}
 
+# Assuming disaster_df is your dataframe
+# Reordering states based on the count of disasters
+disaster_df <- disaster_df %>%
+  group_by(state) %>%
+  mutate(Count = n()) %>%
+  ungroup() %>%
+  mutate(state = reorder(state, Count, FUN = function(x) -sum(x)))
+
+# Plotting
 ggplot(disaster_df, aes(x = state, fill = incident_type)) +
   geom_bar() +
   labs(title = "Distribution of Disaster Types by State",
        x = "State",
        y = "Count") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 
 
 ```
