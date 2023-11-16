@@ -5,12 +5,8 @@ date: "2023-02-01"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-
-```{r libraries used}
+```{r libraries used, message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
 library(RSQLite)
 library(DBI)
@@ -18,9 +14,9 @@ library(ggplot2)
 library(dplyr)
 ```
 
-###Connect to DB and set working directory
-##build a data frame from the queries
-```{r set working directory}
+### Connect to DB and set working directory
+### build a data frame from the queries
+```{r set working directory, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 setwd("~/workbook")
 
 con <- dbConnect(RSQLite::SQLite(),"Disaster_Data.db")
@@ -45,19 +41,40 @@ GROUP BY fy_declared
 ORDER by fy_declared DESC;")
 ```
 
-#build data frames and summary statics
-```{r build the dataframes}
-disaster_df <- dbReadTable(con, "us_disaster_declarations")
+### build data frames and summary statics
+
+```{r build the dataframes, echo=FALSE, message=FALSE, warning=FALSE}
+disaster_df <- as.tibble(dbReadTable(con, "us_disaster_declarations"))
 type<- disaster_df %>% 
   count(incident_type)
 
-summary(disaster_df)
-colnames(disaster_df)
 head(disaster_df)
-View(disaster_df)
+
+# Summary for Numeric Columns
+numeric_summary <- disaster_df %>%
+  summarise(across(where(is.numeric), list(
+    mean = ~mean(., na.rm = TRUE),
+    median = ~median(., na.rm = TRUE),
+    min = ~min(., na.rm = TRUE),
+    max = ~max(., na.rm = TRUE),
+    n_missing = ~sum(is.na(.))
+  )))
+
+# Summary for Character Columns
+character_summary <- disaster_df %>%
+  summarise(across(where(is.character), list(
+    unique_count = ~n_distinct(.),
+    most_common = ~names(sort(table(.), decreasing = TRUE)[1]),
+    n_missing = ~sum(is.na(.))
+  )))
+
+# Print summaries
+print(numeric_summary)
+print(character_summary)
+
 ```
 
-###rename and rearrange columns
+### rename and rearrange columns
 ```{r rename columns}
 res <- res %>% 
   rename(Number_of_Disasters_Declared = number_of_incidents,Year_Declared = fy_declared)
@@ -67,62 +84,108 @@ type <- type %>%
 ```
 
 
-#take a look at the distribution of the graphs this this test for outliers
-```{r search for outliers }
+### take a look at the distribution of the graphs this this test for outliers
+```{r search for outliers, echo=FALSE, message=FALSE, warning=FALSE}
 boxplot(res$Number_of_Disasters_Declared)
 boxplot(type$n)
 ```
 
 
-#filter out outliers
-#outliers filters where the year 2020(for covid-19), and 2023(because it was incomplete collection of information) 
-```{r filters}
+### filter out outliers
+### outliers filters where the year 2020(for covid-19), and 2023(because it was incomplete collection of information) 
+```{r filters, include=FALSE}
 res <- res %>% 
   filter(Number_of_Disasters_Declared < 4500,Year_Declared < 2023)
 ```
 
 
-#see changed distrubtion
-```{r check outliers again}
+### see changed distrubtion
+```{r check outliers again, echo=FALSE, message=FALSE, warning=FALSE}
 boxplot(res$Number_of_Disasters_Declared)
 ```
 
-#build an arrangment paired with mutaute in DPLYR library than pass it to ggplot and build the graph
-#this reorders the factors in the graph so its easier to break down and look at
-```{r build graph}
-type %>% 
-  arrange(n) %>% 
-  mutate(incident_type=factor(incident_type,levels=incident_type)) %>% 
-  ggplot(aes(x=incident_type,y=n))+
-  geom_point(aes())+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+### build an arrangment paired with mutaute in DPLYR library than pass it to ggplot and build the graph
+### this reorders the factors in the graph so its easier to break down and look at
+```{r build graph, echo=FALSE, message=FALSE, warning=FALSE}
+# Assuming disaster_df is your dataframe
+# Reordering the factor based on count
+disaster_df <- disaster_df %>%
+  mutate(incident_type = reorder(incident_type, incident_type, FUN = function(x) -length(x)))
+
+# Plotting
+ggplot(disaster_df, aes(x = incident_type)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Frequency of Different Types of Disasters",
+       x = "Disaster Type",
+       y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 ```
 
-#build a frequncy table to see the distrubtion.
+# build a frequncy table to see the distrubtion.
 ```{build a frequency table}
 hist(res$Number_of_Disasters_Declared)
 ```
 
 
-#build a standard GGPLOT since this graph is on a timelines no need to do anything to it
-```{r build out the dotplot}
+### build a standard GGPLOT since this graph is on a timelines no need to do anything to it
+```{r build out the dotplot, echo=FALSE, message=FALSE, warning=FALSE}
 res.graph <-ggplot(data = res,mapping = aes(x = Year_Declared,y=Number_of_Disasters_Declared))+
   geom_point(aes())+
   geom_smooth(method = "lm",col="black")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   labs(title = "Number of Natural Disasters Declared by year",subtitle ="By the federal government")
+
+print(res.graph)
+```
+```{r Geographic Analysis}
+
+ggplot(disaster_df, aes(x = state, fill = incident_type)) +
+  geom_bar() +
+  labs(title = "Distribution of Disaster Types by State",
+       x = "State",
+       y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
 ```
 
-```{r}
-res.graph
 
-cor(res$Year_Declared,res$Number_of_Disasters_Declared)
 
-cor.test(res$Year_Declared,res$Number_of_Disasters_Declared)
+```{r regression model, echo=FALSE, warning=FALSE}
+
+# Linear regression analysis
+model <- lm(Number_of_Disasters_Declared ~ Year_Declared, data = res)
+
+# Summary of the model
+summary(model)
+
+
+ggplot(res, aes(x = Year_Declared, y = Number_of_Disasters_Declared)) +
+  geom_point() +  # Scatter plot points
+  geom_smooth(method = "lm", col = "blue") +  # Regression line
+  labs(title = "Regression Analysis",
+       x = "Year Declared",
+       y = "Number of Disasters Declared") +
+  theme_minimal()
+
+```
+```{r residuals vs fitted model}
+
+# Assuming 'model' is your linear model
+ggplot(data = res, aes(x = fitted(model), y = resid(model))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted Values",
+       x = "Fitted Values",
+       y = "Residuals") +
+  theme_minimal()
+
+
 ```
 
 
-```{r disconnect from the DB}
+```{r disconnect from the DB, include=FALSE}
 dbDisconnect(con)
 ```
 
