@@ -124,6 +124,9 @@ ggplot(disaster_df, aes(x = incident_type)) +
 
 
 
+
+
+
 ### build a standard GGPLOT since this graph is on a timelines no need to do anything to it
 
 ```{r Geographic Analysis}
