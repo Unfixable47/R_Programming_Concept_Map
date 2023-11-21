@@ -43,11 +43,6 @@ WorkplaceRights %>%
   group_by(ref_area) %>% 
   summary()
 
-CollectiveBargaining %>%
-  ggplot(mapping = aes(x = Country))+
-  geom_bar()
-
-
 library(ggplot2)
 library(dplyr)
 
@@ -63,7 +58,8 @@ CollectiveBargaining %>%
     mutate(Year = factor(Year),  # Convert Year to a factor
            Year = fct_infreq(Year)) %>%  # Reorder factor levels based on frequency
     ggplot(aes(x = Year)) +
-    geom_bar()
+    geom_bar()+
+  coord_flip()
   
   
 CollectiveBargaining %>% 
@@ -84,12 +80,105 @@ CollectiveBargaining %>%
   count()
 
 WorkplaceRights %>% 
-  filter(time == "2021") %>% 
+  filter(time == "2021",obs_value > 5.0) %>% 
   ggplot(aes(x = ref_area, y = obs_value))+
   geom_point()+
   coord_flip()
+
+WorkplaceRights %>% 
+  filter(time == "2021",obs_value < 5.0) %>% 
+  ggplot(aes(x = ref_area, y = obs_value))+
+  geom_point()+
+  coord_flip()
+
+WorkplaceRights %>% 
+  filter(time == "2021",obs_value == 0) %>% 
+  View()
+
+WorkplaceRights %>% 
+  filter(time == "2021",obs_value == 0) %>% 
+  count()
+#14 out of the 39 counties are in compliance with international labor law 
+
+
 # This data need to be joined with Collective Bargaining table left join on the
 # mentioned table, as it contains a larger set of data than Collective
 # Bargaining
 
 
+# Count distinct values
+count_CollectiveBargaining <- CollectiveBargaining %>% distinct(Country, .keep_all = TRUE) %>% count() %>% pull(n)
+count_CBCR <- CBCR %>% distinct(ref_area, .keep_all = TRUE) %>% count() %>% pull(n)
+count_TUDR <- TUDR %>% distinct(ref_area, .keep_all = TRUE) %>% count() %>% pull(n)
+count_TradeUnionDensity <- TradeUnionDensity %>% distinct(Country, .keep_all = TRUE) %>% count() %>% pull(n)
+count_WorkplaceRights <- WorkplaceRights %>% distinct(ref_area, .keep_all = TRUE) %>% count() %>% pull(n)
+
+# Combine into a named vector
+counts <- c(CollectiveBargaining = count_CollectiveBargaining,
+            CBCR = count_CBCR,
+            TUDR = count_TUDR,
+            TradeUnionDensity = count_TradeUnionDensity,
+            WorkplaceRights = count_WorkplaceRights)
+
+# Convert to a tibble
+counts_tibble <- tibble(Dataset = names(counts), Countrycount = counts)
+
+
+#below is the combined data set for year
+
+YearCount_WorkplaceRights <- WorkplaceRights %>% 
+  distinct(time, .keep_all = TRUE) %>% 
+  count() %>% 
+  pull(n)
+
+YearCount_TradeUnionDensity <- TradeUnionDensity %>% 
+  distinct(Time, .keep_all = TRUE) %>% 
+  count() %>% 
+  pull(n)
+
+YearCount_TUDR <- TUDR %>% 
+  distinct(time, .keep_all = TRUE) %>% 
+  count() %>% 
+  pull(n)
+
+YearCount_CBCR <- CBCR %>% 
+  distinct(time, .keep_all = TRUE) %>% 
+  count() %>% 
+  pull(n)
+
+YearCount_CollectiveBargaining <- CollectiveBargaining %>% 
+  distinct(Year, .keep_all = TRUE) %>% 
+  count() %>% 
+  pull(n)
+
+# Combine into a tibble
+YearCounts_tibble <- tibble(
+  Dataset = c("WorkplaceRights", "TradeUnionDensity", "TUDR", "CBCR", "CollectiveBargaining"),
+  YearCount = c(YearCount_WorkplaceRights, YearCount_TradeUnionDensity, YearCount_TUDR, YearCount_CBCR, YearCount_CollectiveBargaining)
+)
+
+# Display the tibble
+print(YearCounts_tibble)
+print(counts_tibble)
+
+combinedtibble <- bind_rows(counts_tibble,YearCounts_tibble)
+
+print(combinedtibble)
+
+#the more comprehensive data sets from this data base is TUDR, CBCR, workplace
+#rights. (unsurprising because these where sources directly from the ILO's
+#website)
+
+
+
+TUDR %>% 
+  filter(time == 2017) %>% 
+  View()
+
+CBCR %>% 
+  filter(time == 2017) %>% 
+  View()
+
+WorkplaceRights %>% 
+  filter(time == 2017) %>% 
+  View()

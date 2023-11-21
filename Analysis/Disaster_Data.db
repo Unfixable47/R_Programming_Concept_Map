@@ -1,0 +1,5 @@
+TradeUnionDensity %>%
+  mutate(Time = fct_reorder(Time, Time, .fun = length)) %>%
+  ggplot(aes(x = Time)) +
+  geom_bar() +
+  coord_flip()  # Optional: flip coordinates to make it horizontal
