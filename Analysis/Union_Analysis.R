@@ -171,14 +171,11 @@ print(combinedtibble)
 
 
 
-TUDR %>% 
-  filter(time == 2017) %>% 
-  View()
+TUDR_2017 <- TUDR %>% 
+  filter(time == 2017)
 
-CBCR %>% 
-  filter(time == 2017) %>% 
-  View()
+CBCR_2017 <- CBCR %>% 
+  filter(time == 2017)
 
-WorkplaceRights %>% 
-  filter(time == 2017) %>% 
-  View()
+WorkplaceRights_2017 <- WorkplaceRights %>% 
+  filter(time == 2017)
