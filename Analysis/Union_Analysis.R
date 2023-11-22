@@ -179,3 +179,45 @@ CBCR_2017 <- CBCR %>%
 
 WorkplaceRights_2017 <- WorkplaceRights %>% 
   filter(time == 2017)
+
+
+joined_data <- inner_join(WorkplaceRights_2017, TUDR_2017, by = c("ref_area", "time"))
+
+# View the structure of the combined data
+str(joined_data)
+View(joined_data)
+
+joined_data2017 <- inner_join(joined_data, CBCR, by = c("ref_area","time"))
+
+View(joined_data2017)
+
+
+joined_data2017 <- joined_data2017 %>% 
+  rename("FACB" = obs_value.x,
+         "Collective Bargaining Coverage" = obs_value.y,
+         "Union Density"  = obs_value
+           )
+
+joined_data2017 %>% 
+  select(FACB,`Collective Bargaining Coverage`)
+
+
+#below is the data exploration
+
+
+joined_data2017 %>%
+  select(FACB, `Collective Bargaining Coverage`) %>%
+  cor(use = "complete.obs") # Handling missing values by excluding them
+
+
+ggplot(joined_data2017, aes(x = FACB, y = `Collective Bargaining Coverage`)) +
+  geom_point() +
+  theme_minimal() +
+  labs(x = "FACB", y = "Collective Bargaining Coverage", title = "Scatter Plot between FACB and Collective Bargaining Coverage")
+
+
+
+model <- lm(`Collective Bargaining Coverage` ~ FACB, data = joined_data2017)
+summary(model)
+
+
