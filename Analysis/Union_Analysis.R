@@ -187,7 +187,7 @@ joined_data <- inner_join(WorkplaceRights_2017, TUDR_2017, by = c("ref_area", "t
 str(joined_data)
 View(joined_data)
 
-joined_data2017 <- inner_join(joined_data, CBCR, by = c("ref_area","time"))
+joined_data2017 <- inner_join(joined_data, CBCR_2017, by = c("ref_area","time"))
 
 View(joined_data2017)
 
@@ -202,22 +202,39 @@ joined_data2017 %>%
   select(FACB,`Collective Bargaining Coverage`)
 
 
-#below is the data exploration
+#full joined data is below
+joined_data4 <- inner_join(WorkplaceRights, TUDR, by = c("ref_area", "time"))
+joined_full_data_set <- inner_join(joined_data4, CBCR, by = c("ref_area","time"))
 
+joined_full_data_set <- joined_full_data_set %>% 
+  rename("FACB" = obs_value.x,
+         "Collective Bargaining Coverage" = obs_value.y,
+         "Union Density"  = obs_value
+  )
+
+#below is the data exploration
 
 joined_data2017 %>%
   select(FACB, `Collective Bargaining Coverage`) %>%
   cor(use = "complete.obs") # Handling missing values by excluding them
-
 
 ggplot(joined_data2017, aes(x = FACB, y = `Collective Bargaining Coverage`)) +
   geom_point() +
   theme_minimal() +
   labs(x = "FACB", y = "Collective Bargaining Coverage", title = "Scatter Plot between FACB and Collective Bargaining Coverage")
 
-
-
 model <- lm(`Collective Bargaining Coverage` ~ FACB, data = joined_data2017)
 summary(model)
+####full joined data exploration
 
+joined_full_data_set %>%
+  select(FACB, `Collective Bargaining Coverage`) %>%
+  cor(use = "complete.obs")
 
+ggplot(joined_full_data_set, aes(x = FACB, y = `Collective Bargaining Coverage`)) +
+  geom_point() +
+  theme_minimal() +
+  labs(x = "FACB", y = "Collective Bargaining Coverage", title = "Scatter Plot between FACB and Collective Bargaining Coverage")
+
+model2<- lm(`Collective Bargaining Coverage` ~ FACB, data = joined_full_data_set)
+summary(model2)
