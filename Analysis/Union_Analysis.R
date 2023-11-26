@@ -238,3 +238,100 @@ ggplot(joined_full_data_set, aes(x = FACB, y = `Collective Bargaining Coverage`)
 
 model2<- lm(`Collective Bargaining Coverage` ~ FACB, data = joined_full_data_set)
 summary(model2)
+
+
+## final analysis
+
+joined_full_data_set %>%
+  select(FACB, `Collective Bargaining Coverage`,`Union Density`) %>%
+  cor(use = "complete.obs")
+
+model3 <- lm(`Collective Bargaining Coverage` ~ FACB + `Union Density`, data = joined_full_data_set)
+
+summary(model3)
+
+
+library(GGally)
+
+ggpairs(joined_full_data_set, columns = c("FACB", "Collective Bargaining Coverage", "Union Density"),
+        diag = list(continuous = "densityDiag"))
+
+
+
+# Multiple regression model with FACB as the dependent variable
+model_FACB <- lm(FACB ~ `Collective Bargaining Coverage` + `Union Density`, data = joined_full_data_set)
+
+# Summary of the model
+summary(model_FACB)
+
+### Time Series Analysis
+
+# Select a country for the analysis, e.g., "United States"
+country_focus <- "United States"
+
+# Filter the data for the selected country
+TUD_country <- TradeUnionDensity %>%
+  filter(Country == country_focus)
+
+# Plotting the trend of Union Density over time
+ggplot(TUD_country, aes(x = Time, y = Value)) +
+  geom_line() +
+  labs(title = paste("Time Series of Union Density in", country_focus),
+       x = "Time",
+       y = "Union Density") +
+  theme_minimal()
+
+### Comparative Analysis 
+
+# Ensure the year_focus variable is set to the desired year
+year_focus <- 2017
+
+# Filter the data for the selected year
+CBC_year <- joined_full_data_set %>%
+  filter(time == year_focus)
+
+# Reordering the ref_area based on the Collective Bargaining Coverage
+CBC_year <- CBC_year %>%
+  mutate(ref_area = fct_reorder(ref_area, `Collective Bargaining Coverage`))
+
+# Comparative plot
+ggplot(CBC_year, aes(x = ref_area, y = `Collective Bargaining Coverage`)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = paste("Comparative Analysis of Collective Bargaining Coverage in", year_focus),
+       x = "Country",
+       y = "Collective Bargaining Coverage") +
+  theme_minimal()
+
+
+### Descriptive Analysis
+
+# Descriptive statistics
+summary_stats <- TradeUnionDensity %>%
+  summarise(Mean = mean(Value, na.rm = TRUE),
+            Median = median(Value, na.rm = TRUE),
+            SD = sd(Value, na.rm = TRUE))
+
+print(summary_stats)
+
+# Histogram of Union Density
+ggplot(TradeUnionDensity, aes(x = Value)) +
+  geom_histogram(bins = 30, fill = "blue", color = "black") +
+  labs(title = "Histogram of Union Density",
+       x = "Union Density",
+       y = "Frequency") +
+  theme_minimal()
+
+
+#Union Density is right-skewed, it would suggest that most countries have a lower union
+#density, but a few countries have a very high union density. The peak of the
+#histogram would indicate the most common range of union density. If there are
+#any gaps or isolated bars, they might indicate outliers or special cases.
+#remember, a histogram is a tool for exploring your data. It provides a visual
+#summary that can guide further analysis, but it's always important to consider
+#other factors and context related to your data.
+
+
+
+
+
