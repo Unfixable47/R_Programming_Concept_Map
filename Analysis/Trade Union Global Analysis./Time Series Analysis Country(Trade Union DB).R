@@ -52,3 +52,7 @@ ggplot(WorkplaceRights_Country, aes(x = time, y = obs_value)) +
        y = "(ILOdata)Collective bargaining coverage") +
   theme_minimal()
 
+
+
+
+

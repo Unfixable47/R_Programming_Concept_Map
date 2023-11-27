@@ -38,15 +38,15 @@ for (year_focus in 2015:2020) {
   
   # Reordering the ref_area based on the Collective Bargaining Coverage
   WorkplaceRight_year <- WorkplaceRight_year %>%
-    mutate(ref_area = fct_reorder(ref_area, `FACB`))
+    mutate(ref_area = fct_reorder(ref_area, `National_Compliance_wth_Labour_Rights`))
   
   # Comparative plot
-  plot <- ggplot(WorkplaceRight_year, aes(x = ref_area, y = `FACB`)) +
+  plot <- ggplot(WorkplaceRight_year, aes(x = ref_area, y = `National_Compliance_wth_Labour_Rights`)) +
     geom_bar(stat = "identity") +
     coord_flip() +
     labs(title = paste("Comparative Analysis of Countries Complaince with international labor law", year_focus),
          x = "Country",
-         y = "FACB") +
+         y = "National_Compliance_wth_Labour_Rights") +
     theme_minimal()
   
   # Print the plot
@@ -70,7 +70,7 @@ for (year_focus in 2015:2020) {
     coord_flip() +
     labs(title = paste("Comparative Analysis of Union Density in different countries", year_focus),
          x = "Country",
-         y = "FACB") +
+         y = "National_Compliance_wth_Labour_Rights") +
     theme_minimal()
   
   # Print the plot
