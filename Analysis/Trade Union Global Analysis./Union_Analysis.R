@@ -194,8 +194,8 @@ View(joined_data2017)
 
 joined_data2017 <- joined_data2017 %>% 
   rename("FACB" = obs_value.x,
-         "Collective Bargaining Coverage" = obs_value.y,
-         "Union Density"  = obs_value
+         "Union Density"  = obs_value.y,
+         "Collective Bargaining Coverage"   = obs_value
            )
 
 joined_data2017 %>% 
@@ -333,5 +333,5 @@ ggplot(TradeUnionDensity, aes(x = Value)) +
 
 
 
-#test case 1
+#test case 12
 
