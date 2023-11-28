@@ -3,7 +3,7 @@
 library(dplyr)
 
 # Assuming your data frame is named joined_full_data_set
-result <- joined_full_data_set %>%
+ILO_Summary_data <- joined_full_data_set %>%
   group_by(ref_area) %>%
   summarise(
     mean_time = mean(time, na.rm = TRUE),
@@ -12,6 +12,6 @@ result <- joined_full_data_set %>%
     mean_Union_Density = mean(`Union Density`, na.rm = TRUE)
   )
 
-print(result)
+print(ILO_Summary_data)
 
-View(result)
+View(ILO_Summary_data)
