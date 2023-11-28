@@ -1,0 +1,1 @@
+ggsave() defaults to saving the last plot that you  displayed and uses the size of the current graphics device.
