@@ -29,7 +29,7 @@ ggplot(TradeUnionDensity, aes(x = Value)) +
 
 ggplot(WorkplaceRights, aes(x = obs_value)) +
   geom_histogram(bins = 30, fill = "blue", color = "black") +
-  labs(title = "Histogram of Complainance with international law ILO",
+  labs(title = "Histogram of Complainance with international law (ILO)",
        x = "Workplace rights Complainace with international law",
        y = "Frequency") +
   theme_minimal()
@@ -38,7 +38,7 @@ ggplot(WorkplaceRights, aes(x = obs_value)) +
 
 ggplot(CBCR, aes(x = obs_value)) +
   geom_histogram(bins = 30, fill = "blue", color = "black") +
-  labs(title = "Histogram of CBCR",
+  labs(title = "Histogram of Collective Bargaining Coverage",
        x = "CBCR",
        y = "Frequency") +
   theme_minimal()
