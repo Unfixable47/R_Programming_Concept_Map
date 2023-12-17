@@ -1,0 +1,24 @@
+\documentclass{article}
+\begin{document}
+
+\title{My Rnw Document}
+\author{michael v cumbo}
+\maketitle
+
+\section{Introduction}
+This is an example of embedding R code in a LaTeX document.
+
+\section{R Code Examples}
+We can embed R code within our LaTeX document.
+
+<<echo=TRUE>>=
+# R code goes here
+summary(cars$speed)
+summary(cars$dist)
+@
+
+\section{Conclusion}
+This document demonstrates embedding R code in LaTeX.
+
+\end{document}
+
