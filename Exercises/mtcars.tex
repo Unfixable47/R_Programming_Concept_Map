@@ -402,4 +402,44 @@ Explore the relationship between miles per gallon (\textit{mpg}) and other varia
     \item R script with your code and comments explaining each step.
     \item A brief report summarizing your findings.
 \end{itemize}
+
+begin{enumerate}
+    \item \textbf{Horsepower (hp):}
+    \begin{itemize}
+        \item Coefficient: $-0.06823$. This indicates that for every unit increase in horsepower, mpg decreases by approximately 0.06823 units.
+        \item P-value: $1.79 \times 10^{-7}$, showing a strong negative relationship between horsepower and mpg.
+    \end{itemize}
+
+    \item \textbf{Number of Cylinders (cyl):}
+    \begin{itemize}
+        \item Coefficient: $-2.8758$, suggesting a substantial decrease in mpg with each additional cylinder.
+        \item P-value: $6.11 \times 10^{-10}$, indicating a strong inverse relationship between the number of cylinders and mpg.
+    \end{itemize}
+
+    \item \textbf{Rear Axle Ratio (drat):}
+    \begin{itemize}
+        \item Coefficient: $7.678$, showing a positive relationship with mpg.
+        \item P-value: $1.78 \times 10^{-5}$, suggesting that cars with higher rear axle ratios tend to have better fuel efficiency.
+    \end{itemize}
+
+    \item \textbf{1/4 Mile Time (qsec):}
+    \begin{itemize}
+        \item Coefficient: $1.4121$, indicating that cars with faster quarter-mile times tend to have slightly higher mpg.
+        \item P-value: $0.0171$, though with a lower R-squared value, suggesting a weaker overall model fit.
+    \end{itemize}
+
+    \item \textbf{Engine Configuration (vs):}
+    \begin{itemize}
+        \item Coefficient: $7.940$, showing a strong positive effect on mpg.
+        \item P-value: $3.42 \times 10^{-5}$, indicating that engine configuration has a notable impact on fuel efficiency.
+    \end{itemize}
+
+    \item \textbf{Number of Carburetors (carb):}
+    \begin{itemize}
+        \item Coefficient: $-2.0557$, suggesting that more carburetors are associated with lower mpg.
+        \item P-value: $0.00108$.
+    \end{itemize}
+\end{enumerate}
+
+In conclusion, the number of cylinders (\texttt{cyl}) and horsepower (\texttt{hp}) show the strongest negative relationships with mpg, indicating that cars with more cylinders and higher horsepower tend to have lower fuel efficiency. Conversely, the rear axle ratio (\texttt{drat}) and engine configuration (\texttt{vs}) positively impact mpg. Notably, the significant effect of the rear axle ratio highlights the importance of transmission and powertrain characteristics in determining fuel efficiency.
 \end{document}
