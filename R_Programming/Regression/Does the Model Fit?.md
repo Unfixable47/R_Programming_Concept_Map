@@ -1,7 +1,7 @@
 To assess whether a model fits the data well, several pieces of information and diagnostics are typically considered. These include:
 
 1. **Model Summary Statistics**:
-   - **R-squared**: Indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A higher R-squared value suggests a better fit but be cautious as it can be misleading, especially in complex models or with large datasets.
+   - **R-squared**: Indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A higher R-squared value suggests a better fit but be cautious as it can be misleading, especially in complex models or with large datasets. see [[R Squared Value]]
    - **Adjusted R-squared**: Adjusts the R-squared value based on the number of predictors in the model. It's more reliable for comparing models with different numbers of predictors.
    - **F-Statistic**: Used to test the overall significance of the model. It compares a model with no predictors to the specified model.
 
