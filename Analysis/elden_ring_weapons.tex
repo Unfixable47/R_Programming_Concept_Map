@@ -1,0 +1,345 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={elden\_ring\_weapons.R},
+  pdfauthor={pretender},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{elden\_ring\_weapons.R}
+\author{pretender}
+\date{2024-03-24}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(readr)}
+
+\NormalTok{elden\_ring }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"\textasciitilde{}/Lab1/Analysis/elden\_ring\_weapon.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## New names:
+## Rows: 307 Columns: 24
+## -- Column specification
+## ----------- Delimiter: "," chr
+## (21): Name, Type, Phy...3, ... dbl
+## (3): Cri, Sta, Wgt
+## i Use `spec()` to retrieve the
+## full column specification for this
+## data. i Specify the column types
+## or set `show_col_types = FALSE` to
+## quiet this message.
+## * `Phy` -> `Phy...3`
+## * `Mag` -> `Mag...4`
+## * `Fir` -> `Fir...5`
+## * `Lit` -> `Lit...6`
+## * `Hol` -> `Hol...7`
+## * `Phy` -> `Phy...16`
+## * `Mag` -> `Mag...17`
+## * `Fir` -> `Fir...18`
+## * `Lit` -> `Lit...19`
+## * `Hol` -> `Hol...20`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(elden\_ring)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## spc_tbl_ [307 x 24] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ Name    : chr [1:307] "Academy Glintstone Staff" "Alabaster Lord's Sword" "Albinauric Bow" "Albinauric Staff" ...
+##  $ Type    : chr [1:307] "Glintstone Staff" "Greatsword" "Bow" "Glintstone Staff" ...
+##  $ Phy...3 : chr [1:307] "43" "313" "200" "29" ...
+##  $ Mag...4 : chr [1:307] "-" "93" "-" "-" ...
+##  $ Fir...5 : chr [1:307] "-" "-" "-" "-" ...
+##  $ Lit...6 : chr [1:307] "-" "-" "-" "-" ...
+##  $ Hol...7 : chr [1:307] "-" "-" "-" "-" ...
+##  $ Cri     : num [1:307] 100 100 100 100 100 100 100 100 100 100 ...
+##  $ Sta     : num [1:307] 40 126 60 38 62 68 40 150 150 42 ...
+##  $ Str     : chr [1:307] "D" "B" "E" "D" ...
+##  $ Dex     : chr [1:307] "-" "D" "D" "-" ...
+##  $ Int     : chr [1:307] "S" "D" "-" "B" ...
+##  $ Fai     : chr [1:307] "-" "-" "-" "-" ...
+##  $ Arc     : chr [1:307] "-" "-" "-" "S" ...
+##  $ Any     : chr [1:307] "-" "-" "-" "-" ...
+##  $ Phy...16: chr [1:307] "25" "56" "-" "23" ...
+##  $ Mag...17: chr [1:307] "15" "33" "-" "14" ...
+##  $ Fir...18: chr [1:307] "15" "27" "-" "14" ...
+##  $ Lit...19: chr [1:307] "15" "27" "-" "14" ...
+##  $ Hol...20: chr [1:307] "15" "27" "-" "14" ...
+##  $ Bst     : chr [1:307] "15" "39" "-" "14" ...
+##  $ Rst     : chr [1:307] "10" "19" "-" "9" ...
+##  $ Wgt     : num [1:307] 3 8 4.5 2.5 3 6 3 18 11 4 ...
+##  $ Upgrade : chr [1:307] "Smithing Stones" "Somber Smithing Stones" "Smithing Stones" "Smithing Stones" ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   Name = col_character(),
+##   ..   Type = col_character(),
+##   ..   Phy...3 = col_character(),
+##   ..   Mag...4 = col_character(),
+##   ..   Fir...5 = col_character(),
+##   ..   Lit...6 = col_character(),
+##   ..   Hol...7 = col_character(),
+##   ..   Cri = col_double(),
+##   ..   Sta = col_double(),
+##   ..   Str = col_character(),
+##   ..   Dex = col_character(),
+##   ..   Int = col_character(),
+##   ..   Fai = col_character(),
+##   ..   Arc = col_character(),
+##   ..   Any = col_character(),
+##   ..   Phy...16 = col_character(),
+##   ..   Mag...17 = col_character(),
+##   ..   Fir...18 = col_character(),
+##   ..   Lit...19 = col_character(),
+##   ..   Hol...20 = col_character(),
+##   ..   Bst = col_character(),
+##   ..   Rst = col_character(),
+##   ..   Wgt = col_double(),
+##   ..   Upgrade = col_character()
+##   .. )
+##  - attr(*, "problems")=<externalptr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(elden\_ring)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Name"     "Type"    
+##  [3] "Phy...3"  "Mag...4" 
+##  [5] "Fir...5"  "Lit...6" 
+##  [7] "Hol...7"  "Cri"     
+##  [9] "Sta"      "Str"     
+## [11] "Dex"      "Int"     
+## [13] "Fai"      "Arc"     
+## [15] "Any"      "Phy...16"
+## [17] "Mag...17" "Fir...18"
+## [19] "Lit...19" "Hol...20"
+## [21] "Bst"      "Rst"     
+## [23] "Wgt"      "Upgrade"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{unique}\NormalTok{(elden\_ring}\SpecialCharTok{$}\NormalTok{Type))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Glintstone Staff"     
+##  [2] "Greatsword"           
+##  [3] "Bow"                  
+##  [4] "Thrusting Sword"      
+##  [5] "Crossbow"             
+##  [6] "Colossal Weapon"      
+##  [7] "Greataxe"             
+##  [8] "Curved Sword"         
+##  [9] "Halberd"              
+## [10] "Flail"                
+## [11] "Axe"                  
+## [12] "Warhammer"            
+## [13] "Torch"                
+## [14] "Curved Greatsword"    
+## [15] "Dagger"               
+## [16] "Claw"                 
+## [17] "Heavy Thrusting Sword"
+## [18] "Spear"                
+## [19] "Straight Sword"       
+## [20] "Fist"                 
+## [21] "Sacred Seal"          
+## [22] "Hammer"               
+## [23] "Light Bow"            
+## [24] "Katana"               
+## [25] "Twinblade"            
+## [26] "Greatbow"             
+## [27] "Whip"                 
+## [28] "Colossal Sword"       
+## [29] "Reaper"               
+## [30] "Ballista"             
+## [31] "Great Spear"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#  [1] "Glintstone Staff"      "Greatsword"}
+\CommentTok{\#  [3] "Bow"                   "Thrusting Sword"}
+\CommentTok{\#  [5] "Crossbow"              "Colossal Weapon"}
+\CommentTok{\#  [7] "Greataxe"              "Curved Sword"}
+\CommentTok{\#  [9] "Halberd"               "Flail"}
+\CommentTok{\# [11] "Axe"                   "Warhammer"}
+\CommentTok{\# [13] "Torch"                 "Curved Greatsword"}
+\CommentTok{\# [15] "Dagger"                "Claw"}
+\CommentTok{\# [17] "Heavy Thrusting Sword" "Spear"}
+\CommentTok{\# [19] "Straight Sword"        "Fist"}
+\CommentTok{\# [21] "Sacred Seal"           "Hammer"}
+\CommentTok{\# [23] "Light Bow"             "Katana"}
+\CommentTok{\# [25] "Twinblade"             "Greatbow"}
+\CommentTok{\# [27] "Whip"                  "Colossal Sword"}
+\CommentTok{\# [29] "Reaper"                "Ballista"}
+\CommentTok{\# [31] "Great Spear"}
+\CommentTok{\#  [1] "Glintstone Staff"      "Greatsword"}
+\CommentTok{\#  [3] "Bow"                   "Thrusting Sword"}
+\CommentTok{\#  [5] "Crossbow"              "Colossal Weapon"}
+\CommentTok{\#  [7] "Greataxe"              "Curved Sword"}
+\CommentTok{\#  [9] "Halberd"               "Flail"}
+\CommentTok{\# [11] "Axe"                   "Warhammer"}
+\CommentTok{\# [13] "Torch"                 "Curved Greatsword"}
+\CommentTok{\# [15] "Dagger"                "Claw"}
+\CommentTok{\# [17] "Heavy Thrusting Sword" "Spear"}
+\CommentTok{\# [19] "Straight Sword"        "Fist"}
+\CommentTok{\# [21] "Sacred Seal"           "Hammer"}
+\CommentTok{\# [23] "Light Bow"             "Katana"}
+\CommentTok{\# [25] "Twinblade"             "Greatbow"}
+\CommentTok{\# [27] "Whip"                  "Colossal Sword"}
+\CommentTok{\# [29] "Reaper"                "Ballista"}
+\CommentTok{\# [31] "Great Spear"}
+
+
+\NormalTok{deadly\_weapons }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"FingerPrint Stone Shield"}\NormalTok{, }\StringTok{"Vyke\textquotesingle{}s War Spear"}\NormalTok{)}
+\NormalTok{madess\_shield }\OtherTok{\textless{}{-}}\NormalTok{ elden\_ring }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Name }\SpecialCharTok{\%in\%}\NormalTok{ deadly\_weapons)}
+\NormalTok{madess\_shield }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(Name, Type)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 2
+##   Name             Type       
+##   <chr>            <chr>      
+## 1 Vyke's War Spear Great Spear
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{greatspear }\OtherTok{\textless{}{-}}\NormalTok{ elden\_ring }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Type }\SpecialCharTok{==} \StringTok{"Great Spear"}\NormalTok{)}
+\NormalTok{greatspear }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(Name, Type)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   Name                   Type      
+##   <chr>                  <chr>     
+## 1 Lance                  Great Spe~
+## 2 Mohgwyn's Sacred Spear Great Spe~
+## 3 Serpent-Hunter         Great Spe~
+## 4 Siluria's Tree         Great Spe~
+## 5 Treespear              Great Spe~
+## 6 Vyke's War Spear       Great Spe~
+\end{verbatim}
+
+\end{document}

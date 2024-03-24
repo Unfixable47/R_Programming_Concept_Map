@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title></title>
+<style type="text/css">
+/**
+ * Prism.s theme ported from highlight.js's xcode style
+ */
+pre code {
+  padding: 1em;
+}
+.token.comment {
+  color: #007400;
+}
+.token.punctuation {
+  color: #999;
+}
+.token.tag,
+.token.selector {
+  color: #aa0d91;
+}
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #1c00cf;
+}
+.token.property,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: #c41a16;
+}
+.token.inserted {
+  background-color: #ccffd8;
+}
+.token.deleted {
+  background-color: #ffebe9;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #9a6e3a;
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #836c28;
+}
+.token.function,
+.token.class-name {
+  color: #DD4A68;
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: #5c2699;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+</style>
+<style type="text/css">
+body {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+body, .footnotes, code { font-size: .9em; }
+li li { font-size: .95em; }
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+pre, img { max-width: 100%; }
+pre, pre:hover {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+pre code {
+  display: block;
+  overflow-x: auto;
+}
+code { font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace; }
+:not(pre) > code, code[class] { background-color: #F8F8F8; }
+code.language-undefined, pre > code:not([class]) {
+  background-color: inherit;
+  border: 1px solid #eee;
+}
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+}
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+thead, tfoot, tr:nth-child(even) { background: #eee; }
+blockquote {
+  color: #666;
+  margin: 0;
+  padding-left: 1em;
+  border-left: 0.5em solid #eee;
+}
+hr, .footnotes::before { border: 1px dashed #ddd; }
+.frontmatter { text-align: center; }
+#TOC .numbered li { list-style: none; }
+#TOC .numbered { padding-left: 0; }
+#TOC .numbered ul { padding-left: 1em; }
+table, .body h2 { border-bottom: 1px solid #666; }
+.body .appendix, .appendix ~ h2 { border-bottom-style: dashed; }
+.footnote-ref a::before { content: "["; }
+.footnote-ref a::after { content: "]"; }
+section.footnotes::before {
+  content: "";
+  display: block;
+  max-width: 20em;
+}
+
+@media print {
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+  tr, img { page-break-inside: avoid; }
+}
+@media only screen and (min-width: 992px) {
+  pre { white-space: pre; }
+}
+</style>
+</head>
+<body>
+<div class="frontmatter">
+<div class="title"><h1></h1></div>
+<div class="author"><h2></h2></div>
+<div class="date"><h3></h3></div>
+</div>
+<div class="body">
+<pre><code class="language-r">library(tidyverse)
+library(dplyr)
+library(readr)
+
+elden_ring &lt;- read_csv(&quot;~/Lab1/Analysis/elden_ring_weapon.csv&quot;)
+</code></pre>
+<pre><code>## New names:
+## Rows: 307 Columns: 24
+## ── Column specification
+## ─────────── Delimiter: &quot;,&quot; chr
+## (21): Name, Type, Phy...3, ... dbl
+## (3): Cri, Sta, Wgt
+## ℹ Use `spec()` to retrieve the
+## full column specification for this
+## data. ℹ Specify the column types
+## or set `show_col_types = FALSE` to
+## quiet this message.
+## • `Phy` -&gt; `Phy...3`
+## • `Mag` -&gt; `Mag...4`
+## • `Fir` -&gt; `Fir...5`
+## • `Lit` -&gt; `Lit...6`
+## • `Hol` -&gt; `Hol...7`
+## • `Phy` -&gt; `Phy...16`
+## • `Mag` -&gt; `Mag...17`
+## • `Fir` -&gt; `Fir...18`
+## • `Lit` -&gt; `Lit...19`
+## • `Hol` -&gt; `Hol...20`
+</code></pre>
+<pre><code class="language-r">str(elden_ring)
+</code></pre>
+<pre><code>## spc_tbl_ [307 × 24] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ Name    : chr [1:307] &quot;Academy Glintstone Staff&quot; &quot;Alabaster Lord's Sword&quot; &quot;Albinauric Bow&quot; &quot;Albinauric Staff&quot; ...
+##  $ Type    : chr [1:307] &quot;Glintstone Staff&quot; &quot;Greatsword&quot; &quot;Bow&quot; &quot;Glintstone Staff&quot; ...
+##  $ Phy...3 : chr [1:307] &quot;43&quot; &quot;313&quot; &quot;200&quot; &quot;29&quot; ...
+##  $ Mag...4 : chr [1:307] &quot;-&quot; &quot;93&quot; &quot;-&quot; &quot;-&quot; ...
+##  $ Fir...5 : chr [1:307] &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; ...
+##  $ Lit...6 : chr [1:307] &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; ...
+##  $ Hol...7 : chr [1:307] &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; ...
+##  $ Cri     : num [1:307] 100 100 100 100 100 100 100 100 100 100 ...
+##  $ Sta     : num [1:307] 40 126 60 38 62 68 40 150 150 42 ...
+##  $ Str     : chr [1:307] &quot;D&quot; &quot;B&quot; &quot;E&quot; &quot;D&quot; ...
+##  $ Dex     : chr [1:307] &quot;-&quot; &quot;D&quot; &quot;D&quot; &quot;-&quot; ...
+##  $ Int     : chr [1:307] &quot;S&quot; &quot;D&quot; &quot;-&quot; &quot;B&quot; ...
+##  $ Fai     : chr [1:307] &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; ...
+##  $ Arc     : chr [1:307] &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;S&quot; ...
+##  $ Any     : chr [1:307] &quot;-&quot; &quot;-&quot; &quot;-&quot; &quot;-&quot; ...
+##  $ Phy...16: chr [1:307] &quot;25&quot; &quot;56&quot; &quot;-&quot; &quot;23&quot; ...
+##  $ Mag...17: chr [1:307] &quot;15&quot; &quot;33&quot; &quot;-&quot; &quot;14&quot; ...
+##  $ Fir...18: chr [1:307] &quot;15&quot; &quot;27&quot; &quot;-&quot; &quot;14&quot; ...
+##  $ Lit...19: chr [1:307] &quot;15&quot; &quot;27&quot; &quot;-&quot; &quot;14&quot; ...
+##  $ Hol...20: chr [1:307] &quot;15&quot; &quot;27&quot; &quot;-&quot; &quot;14&quot; ...
+##  $ Bst     : chr [1:307] &quot;15&quot; &quot;39&quot; &quot;-&quot; &quot;14&quot; ...
+##  $ Rst     : chr [1:307] &quot;10&quot; &quot;19&quot; &quot;-&quot; &quot;9&quot; ...
+##  $ Wgt     : num [1:307] 3 8 4.5 2.5 3 6 3 18 11 4 ...
+##  $ Upgrade : chr [1:307] &quot;Smithing Stones&quot; &quot;Somber Smithing Stones&quot; &quot;Smithing Stones&quot; &quot;Smithing Stones&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   Name = col_character(),
+##   ..   Type = col_character(),
+##   ..   Phy...3 = col_character(),
+##   ..   Mag...4 = col_character(),
+##   ..   Fir...5 = col_character(),
+##   ..   Lit...6 = col_character(),
+##   ..   Hol...7 = col_character(),
+##   ..   Cri = col_double(),
+##   ..   Sta = col_double(),
+##   ..   Str = col_character(),
+##   ..   Dex = col_character(),
+##   ..   Int = col_character(),
+##   ..   Fai = col_character(),
+##   ..   Arc = col_character(),
+##   ..   Any = col_character(),
+##   ..   Phy...16 = col_character(),
+##   ..   Mag...17 = col_character(),
+##   ..   Fir...18 = col_character(),
+##   ..   Lit...19 = col_character(),
+##   ..   Hol...20 = col_character(),
+##   ..   Bst = col_character(),
+##   ..   Rst = col_character(),
+##   ..   Wgt = col_double(),
+##   ..   Upgrade = col_character()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;
+</code></pre>
+<pre><code class="language-r">colnames(elden_ring)
+</code></pre>
+<pre><code>##  [1] &quot;Name&quot;     &quot;Type&quot;    
+##  [3] &quot;Phy...3&quot;  &quot;Mag...4&quot; 
+##  [5] &quot;Fir...5&quot;  &quot;Lit...6&quot; 
+##  [7] &quot;Hol...7&quot;  &quot;Cri&quot;     
+##  [9] &quot;Sta&quot;      &quot;Str&quot;     
+## [11] &quot;Dex&quot;      &quot;Int&quot;     
+## [13] &quot;Fai&quot;      &quot;Arc&quot;     
+## [15] &quot;Any&quot;      &quot;Phy...16&quot;
+## [17] &quot;Mag...17&quot; &quot;Fir...18&quot;
+## [19] &quot;Lit...19&quot; &quot;Hol...20&quot;
+## [21] &quot;Bst&quot;      &quot;Rst&quot;     
+## [23] &quot;Wgt&quot;      &quot;Upgrade&quot;
+</code></pre>
+<pre><code class="language-r">print(unique(elden_ring$Type))
+</code></pre>
+<pre><code>##  [1] &quot;Glintstone Staff&quot;     
+##  [2] &quot;Greatsword&quot;           
+##  [3] &quot;Bow&quot;                  
+##  [4] &quot;Thrusting Sword&quot;      
+##  [5] &quot;Crossbow&quot;             
+##  [6] &quot;Colossal Weapon&quot;      
+##  [7] &quot;Greataxe&quot;             
+##  [8] &quot;Curved Sword&quot;         
+##  [9] &quot;Halberd&quot;              
+## [10] &quot;Flail&quot;                
+## [11] &quot;Axe&quot;                  
+## [12] &quot;Warhammer&quot;            
+## [13] &quot;Torch&quot;                
+## [14] &quot;Curved Greatsword&quot;    
+## [15] &quot;Dagger&quot;               
+## [16] &quot;Claw&quot;                 
+## [17] &quot;Heavy Thrusting Sword&quot;
+## [18] &quot;Spear&quot;                
+## [19] &quot;Straight Sword&quot;       
+## [20] &quot;Fist&quot;                 
+## [21] &quot;Sacred Seal&quot;          
+## [22] &quot;Hammer&quot;               
+## [23] &quot;Light Bow&quot;            
+## [24] &quot;Katana&quot;               
+## [25] &quot;Twinblade&quot;            
+## [26] &quot;Greatbow&quot;             
+## [27] &quot;Whip&quot;                 
+## [28] &quot;Colossal Sword&quot;       
+## [29] &quot;Reaper&quot;               
+## [30] &quot;Ballista&quot;             
+## [31] &quot;Great Spear&quot;
+</code></pre>
+<pre><code class="language-r">#  [1] &quot;Glintstone Staff&quot;      &quot;Greatsword&quot;
+#  [3] &quot;Bow&quot;                   &quot;Thrusting Sword&quot;
+#  [5] &quot;Crossbow&quot;              &quot;Colossal Weapon&quot;
+#  [7] &quot;Greataxe&quot;              &quot;Curved Sword&quot;
+#  [9] &quot;Halberd&quot;               &quot;Flail&quot;
+# [11] &quot;Axe&quot;                   &quot;Warhammer&quot;
+# [13] &quot;Torch&quot;                 &quot;Curved Greatsword&quot;
+# [15] &quot;Dagger&quot;                &quot;Claw&quot;
+# [17] &quot;Heavy Thrusting Sword&quot; &quot;Spear&quot;
+# [19] &quot;Straight Sword&quot;        &quot;Fist&quot;
+# [21] &quot;Sacred Seal&quot;           &quot;Hammer&quot;
+# [23] &quot;Light Bow&quot;             &quot;Katana&quot;
+# [25] &quot;Twinblade&quot;             &quot;Greatbow&quot;
+# [27] &quot;Whip&quot;                  &quot;Colossal Sword&quot;
+# [29] &quot;Reaper&quot;                &quot;Ballista&quot;
+# [31] &quot;Great Spear&quot;
+#  [1] &quot;Glintstone Staff&quot;      &quot;Greatsword&quot;
+#  [3] &quot;Bow&quot;                   &quot;Thrusting Sword&quot;
+#  [5] &quot;Crossbow&quot;              &quot;Colossal Weapon&quot;
+#  [7] &quot;Greataxe&quot;              &quot;Curved Sword&quot;
+#  [9] &quot;Halberd&quot;               &quot;Flail&quot;
+# [11] &quot;Axe&quot;                   &quot;Warhammer&quot;
+# [13] &quot;Torch&quot;                 &quot;Curved Greatsword&quot;
+# [15] &quot;Dagger&quot;                &quot;Claw&quot;
+# [17] &quot;Heavy Thrusting Sword&quot; &quot;Spear&quot;
+# [19] &quot;Straight Sword&quot;        &quot;Fist&quot;
+# [21] &quot;Sacred Seal&quot;           &quot;Hammer&quot;
+# [23] &quot;Light Bow&quot;             &quot;Katana&quot;
+# [25] &quot;Twinblade&quot;             &quot;Greatbow&quot;
+# [27] &quot;Whip&quot;                  &quot;Colossal Sword&quot;
+# [29] &quot;Reaper&quot;                &quot;Ballista&quot;
+# [31] &quot;Great Spear&quot;
+
+
+deadly_weapons &lt;- c(&quot;FingerPrint Stone Shield&quot;, &quot;Vyke's War Spear&quot;)
+madess_shield &lt;- elden_ring %&gt;%
+  filter(Name %in% deadly_weapons)
+madess_shield %&gt;%
+  select(Name, Type)
+</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   Name             Type       
+##   &lt;chr&gt;            &lt;chr&gt;      
+## 1 Vyke's War Spear Great Spear
+</code></pre>
+<pre><code class="language-r">greatspear &lt;- elden_ring %&gt;%
+  filter(Type == &quot;Great Spear&quot;)
+greatspear %&gt;%
+  select(Name, Type)
+</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   Name                   Type      
+##   &lt;chr&gt;                  &lt;chr&gt;     
+## 1 Lance                  Great Spe…
+## 2 Mohgwyn's Sacred Spear Great Spe…
+## 3 Serpent-Hunter         Great Spe…
+## 4 Siluria's Tree         Great Spe…
+## 5 Treespear              Great Spe…
+## 6 Vyke's War Spear       Great Spe…
+</code></pre>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
