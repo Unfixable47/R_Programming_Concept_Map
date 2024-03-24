@@ -61,8 +61,6 @@ by_tag_subset %>%
   ggplot(mapping = aes(x = year, y = fraction, color = tag)) +
   geom_line()
 
-
-
 # Get tags of interest
 my_tags <- c("android", "ios", "windows-phone")
 
